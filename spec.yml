@@ -1,0 +1,244 @@
+openapi: 3.0.1
+info:
+  title: Delilah resto
+  description: >-
+    sistema de pedidos online para un restaurante.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: user
+    description: Opreaciones de usuario
+  - name: products
+    description: Operaciones con productos
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Lista de Productos
+      description: Lista de productos disponibles para la venta.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        '400':
+          description: Bad request
+          content: {}
+  /products/{idOrder}:
+    get:
+      tags:
+        - products
+      summary: Lista de Productos
+      description: Obtener producto por Id.
+      parameters:
+        - name: idOrder
+          in: path
+          required: true
+          description: Id del pedido
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        '400':
+          description: Bad request
+          content: {}
+  /products/order:
+    post:
+      tags:
+        - products
+      summary: crear orden de pedido
+      requestBody:
+        description: Información de la orden creada.
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid Order
+          content: {}
+      x-codegen-request-body-name: body
+  /products/state:
+    put:
+      tags:
+        - products
+      summary: Cambiar estado de un pedido
+      requestBody:
+        description: Cambiar estado del pedido
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/OrderState'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid Order
+          content: {}
+      x-codegen-request-body-name: body
+  /user:
+    post:
+      tags:
+        - user
+      summary: Crear Usuario
+      description: Creación de usuarios para uso de la aplicación.
+      operationId: createUser
+      requestBody:
+        description: Objeto para crear usuario
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: {}
+      x-codegen-request-body-name: body
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Iniciar sesión
+      parameters:
+        - name: Usuario
+          in: query
+          description: Nombre de usuario para iniciar sesión
+          required: true
+          schema:
+            type: string
+        - name: Contraseña
+          in: query
+          description: Contraseña para iniciar sesión
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inicio correcto
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Usuario o Contraseña invalida
+          content: {}
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        idProduct:
+          type: integer
+          format: int64
+        description:
+          type: string
+        price:
+          type: string
+        image:
+          type: string
+          description: URL de imagen del producto.
+    Order:
+      type: object
+      properties:
+        idOrder:
+          type: integer
+          format: int64
+        idUser:
+          type: integer
+          format: int64
+        idState:
+          type: integer
+          format: int64
+        idPayment:
+          type: integer
+          format: int64
+        addressUser:
+          type: string
+        description:
+          type: string
+        timeOrder:
+          type: string
+          format: date-time
+          
+    OrderState:
+      type: object
+      properties:
+        idOrder:
+          type: integer
+          format: int64
+        idState:
+          type: integer
+          format: int64
+    User:
+      type: object
+      properties:
+        idUser:
+          type: integer
+          format: int64
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        typeUser:
+          type: integer
+          description: Rol de Usuario
+          format: int32
+      xml:
+        name: User
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
