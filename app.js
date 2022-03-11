@@ -10,7 +10,7 @@ const port  = 3000
 const authRoute = require('./routes/auth.routes')
 const usersRoute = require('./routes/users.routes')
 const mealsRoute = require('./routes/meals.routes')
-// const orderRoute = require('./routes/orders.routes')
+const orderRoute = require('./routes/orders.routes')
 
 const app = express()
 app.use(helmet())
@@ -24,7 +24,7 @@ app.use(bodyParser.json())
 app.use('/v1/api/auth', authRoute)
 app.use('/v1/api/users', usersRoute)
 app.use('/v1/api/meals', mealsRoute)
-// app.use('/v1/api/orders', orderRoute)
+app.use('/v1/api/orders', orderRoute)
 
 app.listen(port , () =>{
     console.log("Servidor iniciado en puerto: " + port)
