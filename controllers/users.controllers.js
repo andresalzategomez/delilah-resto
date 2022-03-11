@@ -84,13 +84,15 @@ const getUsersById = async (req, res) =>{
 
 const updateUsersById = async (req, res) =>{
     const {id_role} = req.body
+    console.log(id_role)
 
     try {
         const result = await sequelize.query(`UPDATE users 
         SET id_role = ${id_role} WHERE id_user = ${req.params.userId}`,
         { type: sequelize.QueryTypes.UPDATE })
-        res.status(204).json({
-            message: 'user actulizado',
+        //res.status(200).json({result})
+        res.status(200).json({
+            message: 'Usuario actulizado',
             result
     })
 
@@ -112,7 +114,7 @@ const updateUsersById = async (req, res) =>{
 const deleteUserById = async (req, res) =>{
     try {
         const result = await sequelize.query(`DELETE FROM users WHERE id_user = ${req.params.userId}`)
-        res.status(204).json({
+        res.status(200).json({
             message: 'user eliminado',
             result
         })

@@ -9,6 +9,8 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).json({ error: "Acceso denegado" });
   } 
     try {
+      console.log(token);
+      // console.log(process.env.TOKEN_SECRET)
       const verify = jwt.verify(token, process.env.TOKEN_SECRET);
 
       req.user = verify;
@@ -20,12 +22,11 @@ const verifyToken = async (req, res, next) => {
 };
 
 const isAdmin = async (req, res, next) => {
-  const token = req.header("Authorization").split(" ")[1]
-
+  const token = req.header("Authorization");
   const verify = jwt.verify(token, process.env.TOKEN_SECRET);
   if (verify.id_role === 1) {
     next();
-    console.log(verify.nombre);
+    console.log(verify.nombre_user);
     return;
   }
 
