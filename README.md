@@ -30,7 +30,7 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 
 copia y pega esta línea de comando:
 
-git clone https://github.com/andresalzategomez/delilah-resto.git
+- git clone https://github.com/andresalzategomez/delilah-resto.git
 ___
 
 ----------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ ___
 
 copia y pega esta línea de comando:
 
-npm i
+- npm i
 ___
 
 ----------------------------------------------------------------------------------------------------------
@@ -52,6 +52,7 @@ crear para poder iniciar el servidor con la base de datos.
 También se encuentran la creación de las FOREIGN KEY para 
 hacer la relación entre las tablas.
 
+___
 ----------------------------------------------------------------------------------------------------------
 
 4. Configurar archivo ".env" 
