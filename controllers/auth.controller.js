@@ -26,8 +26,9 @@ const singIn = async (req, res) => {
       return res.status(400).json({ error: "Usuario y/o contraseña inválida" });
     }
 
+    
     const validPassword = await bcrypt.compare(
-      req.body.contrasena,
+      req.body.password,
       user.password,
       (err, response) => {
         if (err) {
@@ -71,7 +72,7 @@ const singIn = async (req, res) => {
 };
 
 const singUp = async (req, res) => {
-  const { nombre_user, email, phone, address, contrasena, id_role } = req.body;
+  const { username, email, phone, address, password, id_role } = req.body;
 
   const { error } = validateRegister.validate(req.body);
   if (error) {
@@ -82,10 +83,10 @@ const singUp = async (req, res) => {
 
   //hash password
   const salt = await bcrypt.genSalt(10);
-  const passwordHash = await bcrypt.hash(contrasena, salt);
+  const passwordHash = await bcrypt.hash(password, salt);
 
   let arrayInsertUser = [
-    `${nombre_user}`,
+    `${username}`,
     `${email}`,
     `${phone}`,
     `${address}`,
