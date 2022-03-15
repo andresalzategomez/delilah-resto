@@ -30,7 +30,6 @@ Crear el backend para un sistema de pedidos online para un restaurante.
 
 copia y pega esta línea de comando:
 
-___
 git clone https://github.com/andresalzategomez/delilah-resto.git
 ___
 
@@ -40,7 +39,6 @@ ___
 
 copia y pega esta línea de comando:
 
-___
 npm i
 ___
 
@@ -72,13 +70,13 @@ recuerda que este token debe estar en una variable de entorno y el string debe e
 - EXPIRES (es el tiempo de validez que tendrá el token 
 del usuario para hacer operaciones). EJ: "3d"
 
+___
 ----------------------------------------------------------------------------------------------------------
 
 5. Inicia el servidor 
 
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
 
-___
 - node app.js
 - nodemon app.js
 - npm start
@@ -88,6 +86,7 @@ ___
 
 6. Puedes ir a swagger copiar y pegar el contenido del archivo YAML para entender mejor el funcionamiento de la API
 
+___
 ----------------------------------------------------------------------------------------------------------
 
 7. EDPOINT 
