@@ -2,66 +2,74 @@ create database delilah;
 
 use delilah;
 
-create table users
-(idUser int auto_increment primary key, 
-username varchar(50) NOT NULL,
-password varchar(50) NOT NULL,
-name varchar(50),
-email varchar(50) NOT NULL,
-phone varchar(50),
-address varchar(50),
-typeUser smallint
+CREATE table meals (
+	id_meal int not null primary key auto_increment,
+	name_meal varchar(255),
+	price int,
+	image varchar(255),
+	date_creation timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-create table products
-(idProduct int auto_increment primary key,
-description varchar(50) not null,
-price varchar (50) not null
+CREATE table users (
+	id_user int not null primary key auto_increment,
+	username varchar(255),
+	email varchar(255) not null unique,
+	phone varchar(255),
+	address varchar(255),
+	password varchar(255),
+	id_role int
 );
 
-create table state
-(idState int auto_increment primary key,
-description varchar(50) not null
-)
+CREATE table orders (
+	id_order int not null primary key auto_increment,
+	id_user int,
+	id_meal int,
+	hour timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	id_payment_method int,
+	id_status int
+);
 
-create table payment_method
-(idPayment int auto_increment primary key,
-description varchar (50) not null
-)
+CREATE table status (
+	id_status int not null primary key auto_increment,
+	name_status varchar(255)
+);
 
-create table orders
-(idOrder int auto_increment primary key,
-idUser int not null, 
-idState int not null,
-idPayment int not null,
-addressUser int not null,
-description varchar(50) not null,
-timeOrder varchar(50)
-)
+create table users_roles(
+	id_role int not null primary key auto_increment,
+	name_role varchar(255)
+);
 
-create table products_Order
-(idPP int auto_increment primary key,
-idOrder int not null,
-idProduct int not null,
-amount int not null
-)
+CREATE table payment_method (
+	id_payment_method int not null primary key auto_increment,
+	name_payment_method varchar(255)
+);
 
 
-alter table products_order 
-add foreign key (idOrder) references orders(idOrder);
+
+ALTER table users add CONSTRAINT users_fk_1 FOREIGN KEY (id_role) REFERENCES users_roles (id_role);
+
+ALTER table orders add CONSTRAINT orders_fk_1 FOREIGN KEY (id_user) REFERENCES users (id_user);
+
+ALTER table orders add CONSTRAINT orders_fk_2 FOREIGN KEY (id_meal) REFERENCES meals (id_meal);
+
+ALTER table orders add CONSTRAINT orders_fk_3 FOREIGN KEY (id_status) REFERENCES status (id_status);
+
+ALTER table orders add CONSTRAINT orders_fk_4 FOREIGN KEY (id_payment_method) REFERENCES payment_method (id_payment_method);
 
 
-alter table products_order 
-add foreign key (idProduct) references products(idProduct);
 
-
-alter table orders
-add foreign key (idUser) references users(idUser);
-
-
-alter table orders
-add foreign key (idState) references state(idState);
-
-alter table orders
-add foreign key (idPayment) references payment_method(idPayment);
-
+INSERT into status(name_status) values 
+	('Nuevo'),
+	 ('Confirmado'),
+	 ('Preparando'),
+	 ('Enviando'),
+	 ('Entregado');
+	
+INSERT into users_roles (name_role) values 
+	('admin'),
+	 ('user');
+	
+INSERT INTO payment_method (name_payment_method) values 
+	('Efectivo'),
+	('Tarjeta de débito'),
+	('Tarjeta de crédito');

@@ -67,10 +67,10 @@ Debe estar escrito tal cual como se muestra en este documento.
 
 - TOKEN_SECRET (es el token que se necesita para generar y decodificar 
 el token de cada usuario y así poder hacer las diferentes acciones, 
-recuerda que este token debe estar en una variable de entorno y el string debe estar oculto)
+recuerda que este token debe estar en una variable de entorno y el string debe estar oculto). EJ: "contr@sen4d3prueb@"
 
 - EXPIRES (es el tiempo de validez que tendrá el token 
-del usuario para hacer operaciones).
+del usuario para hacer operaciones). EJ: "3d"
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -79,9 +79,9 @@ del usuario para hacer operaciones).
 Tienes varias opciones para iniciar el servidor. Desde tu terminal o editor de código(en la consola) y estando en la carpeta delilah-resto puedes introducir cualquiera de estos comandos:
 
 ___
-node app.js
-nodemon app.js
-npm start
+- node app.js
+- nodemon app.js
+- npm start
 ___
 
 ----------------------------------------------------------------------------------------------------------
